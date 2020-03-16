@@ -1,0 +1,12 @@
+#active {
+  color: #C03221 !important;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background-color: #F1F2EB;
+}
+.container-lg {
+  background-color: #fff !important;
+}
