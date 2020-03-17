@@ -2,8 +2,8 @@
 TODO:
 - Check data labels after drilling. Label rank? New positions?
 */
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+function getRandomInt(max,num) {
+  return Math.floor(Math.random() * Math.floor(max) -num);
 }
 
 d3.json('http://127.0.0.1:5000/api/results').then(function(result,error) {
@@ -17,7 +17,7 @@ d3.json('http://127.0.0.1:5000/api/results').then(function(result,error) {
   // Set drilldown pointers
   $.each(data, function (i) {
     this.drilldown = this.properties['hc-key'];
-    this.value = getRandomInt(2); // Non-random bogus data
+    this.value = getRandomInt(2,0); // Non-random bogus data
   });
 
   // Instantiate the map
@@ -198,7 +198,7 @@ d3.json('http://127.0.0.1:5000/api/results').then(function(result,error) {
   // Set drilldown pointers
   $.each(data, function (i) {
     this.drilldown = this.properties['hc-key'];
-    this.value = getRandomInt(2); // Non-random bogus data
+    this.value = getRandomInt(3,1); // Non-random bogus data
   });
 
   // Instantiate the map
