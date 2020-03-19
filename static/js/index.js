@@ -482,9 +482,11 @@ Highcharts.chart("bernieHeatmap", {
 
   colorAxis: {
     stops: [
-      [0, "#3060cf"],
+      [0, "#0079ff"],
+      [0.25, "#abb9ff"],
       [0.5, "#ffffff"],
-      [1, "#c4463a"]
+      [0.75, "#ff9d81"],
+      [1, "#f90000"]
     ],
     max: 0.55,
     min: -0.56,
@@ -697,16 +699,16 @@ Highcharts.chart("bidenHeatmap", {
 
   colorAxis: {
     stops: [
-      [0, "#3060cf"],
+      [0, "#0079ff"],
+      [0.25, "#abb9ff"],
       [0.5, "#ffffff"],
-      [1, "#c4463a"]
+      [0.75, "#ff9d81"],
+      [1, "#f90000"]
     ],
     max: 0.55,
     min: -0.56,
     reversed: false
   },
-
-
 
   legend: {
     align: "right",
