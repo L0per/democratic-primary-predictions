@@ -396,13 +396,16 @@ Highcharts.chart("bernieHeatmap", {
     x: -30
   },
 
-  xAxis: [{
-    categories: [""]
-  }, {
-    linkedTo: 0,
-    categories: ["Percent Vote Correlation"],
-    opposite: true
-  }],
+  xAxis: [
+    {
+      categories: [""]
+    },
+    {
+      linkedTo: 0,
+      categories: ["Percent Vote Correlation"],
+      opposite: true
+    }
+  ],
 
   yAxis: {
     categories: [
@@ -480,10 +483,11 @@ Highcharts.chart("bernieHeatmap", {
   colorAxis: {
     stops: [
       [0, "#3060cf"],
-      [0.6, "#ffffff"],
+      [0.5, "#ffffff"],
       [1, "#c4463a"]
     ],
-    min: -0.5614970856060336,
+    max: 0.55,
+    min: -0.56,
     reversed: false
   },
 
@@ -498,17 +502,13 @@ Highcharts.chart("bernieHeatmap", {
 
   tooltip: {
     formatter: function() {
-      return (
-        "<b>" +
-        this.point.value +
-        "</b>"
-      );
+      return "<b>" + this.point.value + "</b>";
     }
   },
 
   series: [
     {
-      borderWidth: 1,
+      borderWidth: 0,
       data: [
         [0, 0, 0.47948347198109725],
         [0, 1, 0.3531290765477635],
@@ -563,14 +563,229 @@ Highcharts.chart("bernieHeatmap", {
         [0, 50, -0.5614970856060336]
       ],
       dataLabels: {
+        style: {
+          textOutline: 0
+        },
         enabled: true,
         color: "#000000",
         formatter: function() {
-          return (
-            "<b>" +
-            getPointCategoryName(this.point, "y") +
-            "</b>"
-          );
+          return "<b>" + getPointCategoryName(this.point, "y") + "</b>";
+        }
+      }
+    }
+  ],
+
+  responsive: {
+    rules: [
+      {
+        condition: {
+          maxWidth: 500
+        }
+      }
+    ]
+  }
+});
+
+///////////////////////////////////////////////////
+// Biden Heat Map
+///////////////////////////////////////////////////
+
+function getPointCategoryName(point, dimension) {
+  var series = point.series,
+    isY = dimension === "y",
+    axis = series[isY ? "yAxis" : "xAxis"];
+  return axis.categories[point[isY ? "y" : "x"]];
+}
+
+Highcharts.chart("bidenHeatmap", {
+  chart: {
+    type: "heatmap",
+    marginTop: 60,
+    marginBottom: 80,
+    plotBorderWidth: 1
+  },
+
+  title: {
+    text: "Biden",
+    x: -30
+  },
+
+  xAxis: [
+    {
+      categories: [""]
+    },
+    {
+      linkedTo: 0,
+      categories: ["Percent Vote Correlation"],
+      opposite: true
+    }
+  ],
+
+  yAxis: {
+    categories: [
+      "Black",
+      "Black-owned firms",
+      "Poverty",
+      "Living in same house 1+ year",
+      "Travel time to work",
+      "Female",
+      "Homeownership rate",
+      "Age over 65",
+      "American Indian and Alaska Native-owned firms",
+      "Age under 18",
+      "Women-owned firms",
+      "Persons per household",
+      "Population per square mile",
+      "Age under 5",
+      "Change in private employment",
+      "American Indian and Alaka Native",
+      "Merchant wholesaler sales",
+      "Manufacturers shupments",
+      "Native Hawaiian and Pacific Islander-owned firms",
+      "Nonemployer establishments",
+      "Building permits",
+      "Asian-owned firms",
+      "Private employment",
+      "Total number of firms",
+      "Accommodation and food services sales",
+      "Population, 2010 (April 1) estimates base",
+      "Population 2010",
+      "Population, 2014 estimate",
+      "Households",
+      "Private establishments",
+      "Housing Units",
+      "White, not Hispanic or Latino",
+      "Retail sales",
+      "Veteran",
+      "Two or more races",
+      "Retail sales per capita",
+      "Native Hawaiian or Pacific Islander",
+      "Hispanic-owned firms",
+      "Land area",
+      "Asian",
+      "Percent change population",
+      "High school graduate, age 25+",
+      "Housing units in multi-unit structures",
+      "Per capita income",
+      "Hispanic or Latino",
+      "Median house value",
+      "Median household income",
+      "Foreign language",
+      "Bachelor's degree, age 25+",
+      "Foreign born",
+      "White"
+    ],
+    title: null,
+    reversed: true,
+    labels: {
+      enabled: false
+    }
+  },
+
+  accessibility: {
+    point: {
+      descriptionFormatter: function(point) {
+        var ix = point.index + 1,
+          xName = getPointCategoryName(point, "x"),
+          yName = getPointCategoryName(point, "y"),
+          val = point.value;
+        return ix + ". " + xName + " sales " + yName + ", " + val + ".";
+      }
+    }
+  },
+
+  colorAxis: {
+    stops: [
+      [0, "#3060cf"],
+      [0.5, "#ffffff"],
+      [1, "#c4463a"]
+    ],
+    max: 0.55,
+    min: -0.56,
+    reversed: false
+  },
+
+
+
+  legend: {
+    align: "right",
+    layout: "vertical",
+    margin: 0,
+    verticalAlign: "top",
+    y: 25,
+    symbolHeight: 280
+  },
+
+  tooltip: {
+    formatter: function() {
+      return "<b>" + this.point.value + "</b>";
+    }
+  },
+
+  series: [
+    {
+      borderWidth: 0,
+      data: [
+        [0, 0, 0.5494742287569667],
+        [0, 1, 0.3262760587450224],
+        [0, 2, 0.28579067315963536],
+        [0, 3, 0.2603624898010897],
+        [0, 4, 0.2127088107860216],
+        [0, 5, 0.18080010499139612],
+        [0, 6, 0.1690794705774919],
+        [0, 7, 0.14925758227630984],
+        [0, 8, -0.0074185371216185505],
+        [0, 9, -0.033349692380899125],
+        [0, 10, -0.0347324467728185],
+        [0, 11, -0.05527140552392148],
+        [0, 12, -0.0602910142112715],
+        [0, 13, -0.06361154740567179],
+        [0, 14, -0.06528341925131279],
+        [0, 15, -0.08652057032895973],
+        [0, 16, -0.08968518344857322],
+        [0, 17, -0.0904590491904661],
+        [0, 18, -0.11633723427286047],
+        [0, 19, -0.13164333135638817],
+        [0, 20, -0.13501389901317315],
+        [0, 21, -0.1358128309536151],
+        [0, 22, -0.13741988941909852],
+        [0, 23, -0.13895082003348766],
+        [0, 24, -0.14164295454345993],
+        [0, 25, -0.14194195105430304],
+        [0, 26, -0.14194851179012435],
+        [0, 27, -0.1436810997012898],
+        [0, 28, -0.14375860016917907],
+        [0, 29, -0.14557181029951305],
+        [0, 30, -0.14579744544725903],
+        [0, 31, -0.14637789444254037],
+        [0, 32, -0.14919679255652243],
+        [0, 33, -0.1568956955030429],
+        [0, 34, -0.16029835924003372],
+        [0, 35, -0.1713315129258881],
+        [0, 36, -0.20357839906204125],
+        [0, 37, -0.22205831815184313],
+        [0, 38, -0.22803307958359367],
+        [0, 39, -0.23206344941276574],
+        [0, 40, -0.24515506145717042],
+        [0, 41, -0.28869776548191717],
+        [0, 42, -0.2896562383469938],
+        [0, 43, -0.29079042099371916],
+        [0, 44, -0.309577768702916],
+        [0, 45, -0.31787439576591964],
+        [0, 46, -0.3197354272202843],
+        [0, 47, -0.33701647586533623],
+        [0, 48, -0.34079367419042017],
+        [0, 49, -0.3484349690601851],
+        [0, 50, -0.46881156057935147]
+      ],
+      dataLabels: {
+        style: {
+          textOutline: 0
+        },
+        enabled: true,
+        color: "#000000",
+        formatter: function() {
+          return "<b>" + getPointCategoryName(this.point, "y") + "</b>";
         }
       }
     }
