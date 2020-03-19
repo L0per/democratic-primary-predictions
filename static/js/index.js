@@ -501,8 +501,9 @@ Highcharts.chart("bernieHeatmap", {
   },
 
   tooltip: {
+    followPointer: true,
     formatter: function() {
-      return "<b>" + this.point.value + "</b>";
+      return "<b>" + Highcharts.numberFormat(this.point.value, 2) + "</b>";
     }
   },
 
@@ -717,8 +718,9 @@ Highcharts.chart("bidenHeatmap", {
   },
 
   tooltip: {
+    followPointer: true,
     formatter: function() {
-      return "<b>" + this.point.value + "</b>";
+      return "<b>" + Highcharts.numberFormat(this.point.value, 2) + "</b>";
     }
   },
 
