@@ -9,16 +9,24 @@ password = 'rJMef22QkRqPDFzk'
 client = MongoClient("mongodb+srv://" + username + ":" + password + "@cluster0-paegd.mongodb.net/test?retryWrites=true&w=majority")
 db = client.primary_predictions
 
-results_collection = db['results']
-fips = [fip for fip in results_collection.find()]
+county_collection = db['county_results']
+fips = [fip for fip in county_collection.find()]
+
+state_collection = db['state_results']
+states = [state for state in state_collection.find()]
 
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
 
-@app.route('/api/results',methods=['GET'])
-def api_results():
+@app.route('/api/county_results',methods=['GET'])
+def api_county_results():
     results_list = list(fips)
+    return current_app.response_class(dumps(results_list), mimetype="application/json")
+
+@app.route('/api/state_results',methods=['GET'])
+def api_state_results():
+    results_list = list(states)
     return current_app.response_class(dumps(results_list), mimetype="application/json")
 #
 # @app.route('/api/accounts_query/<search>',methods=['GET'])
