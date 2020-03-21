@@ -205,7 +205,6 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       }
     });
 
-
   })
 })
 
@@ -408,11 +407,144 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       }
     });
 
+    
+
+    ///////////////////////////////////////////////////
+    // Actual vs Predicted Summary Chart
+    ///////////////////////////////////////////////////
+
+    console.log(county_result)
+
+    // create state dictionaries for each candidate and their predicted or actual result
+    let sanders_predicted = {};
+    let sanders_actual = {};
+    let biden_predicted = {};
+    let biden_actual = {};
+    let stateList = []
+
+    let results = county_result[0].results
+
+    for (const county in results) {
+
+      if (!(results[county].predicted_winner == 'Undetermined')) {
+
+        if (!(results[county].actual_winner == 'Undetermined')) {
+
+          let state = results[county].state_abrv
+        
+          if (!(stateList.includes(state))) {
+            stateList.push(state)
+          }
+  
+          if (results[county].predicted_winner == 'Sanders') {
+            sanders_predicted[state] = (sanders_predicted[state]+1) || 1;
+          }
+          
+          if (results[county].actual_winner == 'Sanders') {
+            sanders_actual[state] = (sanders_actual[state]+1) || 1;
+          }
+  
+          if (results[county].predicted_winner == 'Biden') {
+            biden_predicted[state] = (biden_predicted[state]+1) || 1;
+          }
+  
+          if (results[county].actual_winner == 'Biden') {
+            biden_actual[state] = (biden_actual[state]+1) || 1;
+          }
+
+        }
+      }
+    }
+
+    // create plot series
+    let summaryChartSeries = []
+
+    // loop through states
+    for (const state in stateList) {
+      let sanders_post = {
+        'name': '',
+        'data': [],
+        'stack': 'Sanders'
+      }
+      let biden_post = {
+        'name': '',
+        'data': [],
+        'stack': 'Biden'
+      }
+
+      sanders_post.name = stateList[state]
+      biden_post.name = stateList[state]
+
+      sanders_post.data.push(sanders_predicted[stateList[state]])
+      sanders_post.data.push(sanders_actual[stateList[state]])
+      biden_post.data.push(biden_predicted[stateList[state]])
+      biden_post.data.push(biden_actual[stateList[state]])
+
+      summaryChartSeries.push(sanders_post)
+      summaryChartSeries.push(biden_post)
+
+    }
+
+    console.log(summaryChartSeries)
+
+    Highcharts.chart('summaryChart', {
+
+      chart: {
+          type: 'column'
+      },
+    
+      title: {
+          text: 'Predicted vs. Actual Results'
+      },
+    
+      xAxis: {
+          categories: ['Predicted', 'Actual']
+      },
+    
+      yAxis: {
+          allowDecimals: false,
+          min: 0,
+          title: {
+              text: 'Number of Counties Won'
+          }
+      },
+    
+      tooltip: {
+          formatter: function () {
+              return '<b>' + this.x + '</b><br/>' +
+                  this.series.name + ': ' + this.y + '<br/>' +
+                  'Total: ' + this.point.stackTotal;
+          }
+      },
+    
+      plotOptions: {
+          column: {
+              stacking: 'normal'
+          }
+      },
+    
+      series: [{
+          name: 'John',
+          data: [5, 3, 4, 7, 2],
+          stack: 'male'
+      }, {
+          name: 'Joe',
+          data: [3, 4, 4, 2, 5],
+          stack: 'male'
+      }, {
+          name: 'Jane',
+          data: [2, 5, 6, 2, 1],
+          stack: 'female'
+      }, {
+          name: 'Janet',
+          data: [3, 0, 4, 4, 3],
+          stack: 'female'
+      }]
+    });
 
   })
 
 })
-
 
 
 ///////////////////////////////////////////////////
