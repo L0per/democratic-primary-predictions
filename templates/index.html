@@ -24,9 +24,6 @@
         <p class="lead">Using machine learning to predict the outcome of the democratic primaries by county.</p>
         <hr class="my-4">
         <p>Created by Terra Thompson & John Loper</p>
-        <p class='sources' style='font-size: 0.8rem'>
-          Sources: <a href='https://www.washingtonpost.com/elections/'>Washington Post</a>
-        </p>
         <p class="lead">
           <a class="btn btn-primary btn-lg" href="https://github.com/JayTDawgzone/democratic_primary_predictions" role="button">View Github</a>
         </p>
@@ -37,19 +34,21 @@
 
   <!-- Introduction Text -->
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
       <div style='margin: 2rem;'>
-        <p>Using a random forest classifier model, we predicted whether Democratic 2020 candidates Bernie Sanders and Joe Biden would win or lose counties.</p>
+        <p>Using a random forest classifier model, we predicted whether Democratic 2020 candidates Bernie Sanders and Joe Biden would win or lose on the county level.</p>
         <p>A few notes: 
           <ul>
               <li>The model uses the results up to and including Super Tuesday</li>
-              <li>Since we predict the candidates separately, they can both win or lose the same county</li>
+              <li>Predictions are made based on classification, so the candidate either wins or loses counties</li>
+              <li>We predict the candidates separately, so they can both win or lose the same county</li>
               <li>We did not predict states that were used in the model</li>
           </ul>
         </p>
       </div>
     </div>
   </div>
+  <hr class="my-4">
   <!-- End Introduction Text -->
 
   <!-- Map and summary chart -->
@@ -77,36 +76,140 @@
 
   <!-- Map and summary chart text -->
   <div class="row" style='margin: 3rem;'>
-    <div class="col-md-12">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <div class="col-md-6">
+      <p style='margin: 3rem;'>So far, the model has correctly predicted 7 out of 9 states correctly (78% accuracy), however the 2 incorrectly predicted states were close elections.</p>
+      <p style='margin: 3rem;'>Washington was a close election where the final total vote result was Biden 38% vs. Sanders 36%. We predicted that Sanders would win by picking up 29 counties vs. Biden's 10 counties, but the actual results had Sanders at 13 counties vs. Biden's 26.</p>    
+      <p style='margin: 3rem;'>It's important to emphasize that our model does not take into account county population and by extension delgates, so a candidate may win the state even though they did not win the majority of counties.</p>        
+    </div>
+    <div class="col-md-6">
+      <table class="table" style='color: white;'>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">State</th>
+            <th scope="col">Predicted Winner</th>
+            <th scope="col">Actual Winner</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Arizona</td>
+            <td>Sanders</td>
+            <td style="color: red;">Biden</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Florida</td>
+            <td>Biden</td>
+            <td>Biden</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Idaho</td>
+            <td>Biden</td>
+            <td>Biden</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Illinois</td>
+            <td>Biden</td>
+            <td>Biden</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Michigan</td>
+            <td>Biden</td>
+            <td>Biden</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Mississippi</td>
+            <td>Biden</td>
+            <td>Biden</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>Missouri</td>
+            <td>Biden</td>
+            <td>Biden</td>
+          </tr>
+            <th scope="row">8</th>
+            <td>North Dakota</td>
+            <td>Sanders</td>
+            <td>Sanders</td>
+          </tr>
+          <th scope="row">9</th>
+            <td>Washington</td>
+            <td>Sanders</td>
+            <td style="color: red;">Biden</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <hr class="my-4">
   <!-- End Map and summary chart text -->
 
-</div>
-
-
-
-
-
-
-
-
-  <!-- Maps and chart -->
-
-
-
-  <!-- END Maps and chart -->
-
-  
-
-
+  <!-- Data  -->
   <div class="row" style='margin-top: 3rem;'>
-    <div style='margin-left: 2rem;'><h1>Analysis</h1></div>
+    <div class="col-md-12">
+      <div style='margin-left: 2rem;'><h1>Model Data</h1></div>
+    </div>
   </div>
-  
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-6">
+      <div style='margin-left: 2rem;'>
+        <p><strong>Candidate Features:</strong></p>
+          <ul>
+            <li>
+              <p>WHERE DID WE GET THE NON-POLICY FEATURES</p>
+            </li>
+            <li>
+              <p>Candidate stances on policies were also used for training and were sourced from the <a href='https://www.washingtonpost.com/graphics/politics/policy-2020/'>Washington Post.</a></p>
+            </li>
+          </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style='margin-left: 2rem;'>
+        <p><strong>County Features:</strong></p>
+          <ul>
+            <li>
+              <p>Pre-aggregated county demographic data was sourced from <a href='https://www.kaggle.com/benhamner/2016-us-election'>Kaggle.</a></p>
+            </li>
+            <li>
+              <p>County election results were primarily sourced from the <a href='https://www.washingtonpost.com/elections/'>Washington Post</a>, however for some states, Massachusetts for example, <a href='https://apps.npr.org/elections20-primaries/states/MA.html#counties=true&office=P&date=3%2F3%2F2020&party=Dem'>NPR</a> was used.</p>
+            </li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4">
+  <!-- End Data  -->
+
+  <!-- Features -->
   <div class="row" style='margin-top: 3rem;'>
+    <div class="col-md-12">
+      <div style='margin-left: 2rem;'><h1>Features</h1></div>
+    </div>
+  </div>
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-8">
+      <div style='margin-left: 2rem;'>
+        <p>After calculating the % vote for each candidate, correlations for each county demographic feature were calculated and are shown below.</p>
+      </div>
+    </div>
+  </div>
+  <div class="row" style='margin-top: 1rem;'>
+    <div class="col-md-8">
+      <div style='margin-left: 2rem;'>
+        <p>This shows that Biden does well in rural areas and areas with high % black populations, and Sanders does well in urban areas and areas with high % white populations. However, what's interesting is that Biden appears to rely on a few key demographics while Sanders pulls from a much broader demographic.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style='margin-top: 2rem;'>
     <div class="col-md-6">
       <div id='bernieHeatmap' style='height: 1000px'></div>
     </div>
@@ -114,6 +217,21 @@
       <div id='bidenHeatmap' style='height: 1000px'></div>
     </div>
   </div>
+
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-6">
+      <div style='margin-left: 2rem;'>
+        <p>After calculating the percent vote for each Biden and Sanders, correlations for each county demographic feature were calculated and are shown below.</p>
+      </div>
+    </div>
+  </div>
+  <!-- End Features -->
+
+</div>
+
+
+  
+
 
   <div class="row">
     <div class="col-md-6">

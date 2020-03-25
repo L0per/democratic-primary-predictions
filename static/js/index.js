@@ -627,17 +627,6 @@ Highcharts.chart("bernieHeatmap", {
     }
   },
 
-  xAxis: [
-    {
-      categories: [""]
-    },
-    {
-      linkedTo: 0,
-      categories: [""],
-      opposite: true
-    }
-  ],
-
   yAxis: {
     categories: [
       "White",
@@ -699,6 +688,10 @@ Highcharts.chart("bernieHeatmap", {
     }
   },
 
+  xAxis: {
+    visible: false
+  },
+
   accessibility: {
     point: {
       descriptionFormatter: function(point) {
@@ -713,9 +706,9 @@ Highcharts.chart("bernieHeatmap", {
 
   colorAxis: {
     stops: [
-      [0.2, "#76a21e"],
-      [0.5, "#f3ff93"],
-      [0.8, "#560d0d"]
+      [0.2, "#560d0d"],
+      [0.5, "#fbffd9"],
+      [0.8, "#76a21e"]
     ],
     max: 0.55,
     min: -0.56,
@@ -825,14 +818,6 @@ Highcharts.chart("bernieHeatmap", {
   }
 });
 
-
-  })
-
-})
-
-
-
-
 ///////////////////////////////////////////////////
 // Biden Heat Map
 ///////////////////////////////////////////////////
@@ -854,11 +839,10 @@ Highcharts.chart("bidenHeatmap", {
 
   title: {
     text: "Biden",
-    x: -30
-  },
-
-  xAxis: {
-
+    x: 195,
+    style: {
+      fontSize: '30px'
+    }
   },
 
   yAxis: {
@@ -922,6 +906,10 @@ Highcharts.chart("bidenHeatmap", {
     }
   },
 
+  xAxis: {
+    visible: false
+  },
+
   accessibility: {
     point: {
       descriptionFormatter: function(point) {
@@ -936,11 +924,9 @@ Highcharts.chart("bidenHeatmap", {
 
   colorAxis: {
     stops: [
-      [0, "#0079ff"],
-      [0.25, "#abb9ff"],
-      [0.5, "#ffffff"],
-      [0.75, "#ff9d81"],
-      [1, "#f90000"]
+      [0.2, "#560d0d"],
+      [0.5, "#fbffd9"],
+      [0.8, "#76a21e"]
     ],
     max: 0.55,
     min: -0.56,
@@ -952,8 +938,9 @@ Highcharts.chart("bidenHeatmap", {
     layout: "vertical",
     margin: 0,
     verticalAlign: "top",
-    y: 25,
-    symbolHeight: 280
+    y: 45,
+    symbolHeight: 280,
+    backgroundColor: 'rgba(255,0,0,0)'
   },
 
   tooltip: {
@@ -1032,6 +1019,12 @@ Highcharts.chart("bidenHeatmap", {
     }
   ],
 
+  navigation: {
+    buttonOptions: {
+        enabled: false
+    }
+  },
+
   responsive: {
     rules: [
       {
@@ -1042,6 +1035,11 @@ Highcharts.chart("bidenHeatmap", {
     ]
   }
 });
+
+
+  })
+
+})
 
 ///////////////////////////////////////////////
 // Full Features Heatmap
