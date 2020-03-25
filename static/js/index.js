@@ -555,6 +555,10 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       title: {
           text: 'Predicted vs. Actual: Up to 3/17/20 Election Results'
       },
+
+      subtitle: {
+        text: 'Each stack block is a state, hover for predicted vs. actual comparison'
+      },
     
       xAxis: {
           categories: ['Predicted', 'Actual']
@@ -1036,11 +1040,6 @@ Highcharts.chart("bidenHeatmap", {
   }
 });
 
-
-  })
-
-})
-
 ///////////////////////////////////////////////
 // Full Features Heatmap
 ///////////////////////////////////////////////
@@ -1197,11 +1196,9 @@ Highcharts.chart("fullFeatHeatmap", {
 
   colorAxis: {
     stops: [
-      [0, "#0079ff"],
-      [0.25, "#abb9ff"],
-      [0.5, "#ffffff"],
-      [0.75, "#ff9d81"],
-      [1, "#f90000"]
+      [0.1, "#560d0d"],
+      [0.5, "#fbffd9"],
+      [0.9, "#76a21e"]
     ],
     max: 0.55,
     min: -0.56,
@@ -1215,6 +1212,7 @@ Highcharts.chart("fullFeatHeatmap", {
     verticalAlign: "top",
     // y: 25,
     // symbolHeight: 280
+    backgroundColor: 'rgba(255,0,0,0)'
   },
 
   tooltip: {
@@ -2575,6 +2573,12 @@ Highcharts.chart("fullFeatHeatmap", {
     }
   ],
 
+  navigation: {
+    buttonOptions: {
+        enabled: false
+    }
+  },
+
   responsive: {
     rules: [
       {
@@ -2607,7 +2611,7 @@ Highcharts.chart("prunedHeatmap", {
 
   title: {
     text: "Pruned County Demographic Features",
-    x: -30
+    x: 0
   },
 
   xAxis: {
@@ -2742,11 +2746,9 @@ Highcharts.chart("prunedHeatmap", {
 
   colorAxis: {
     stops: [
-      [0, "#0079ff"],
-      [0.25, "#abb9ff"],
-      [0.5, "#ffffff"],
-      [0.75, "#ff9d81"],
-      [1, "#f90000"]
+      [0.1, "#560d0d"],
+      [0.5, "#fbffd9"],
+      [0.9, "#76a21e"]
     ],
     max: 0.55,
     min: -0.56,
@@ -2760,6 +2762,7 @@ Highcharts.chart("prunedHeatmap", {
     verticalAlign: "top",
     // y: 25,
     // symbolHeight: 280
+    backgroundColor: 'rgba(255,0,0,0)'
   },
 
   tooltip: {
@@ -3497,6 +3500,12 @@ Highcharts.chart("prunedHeatmap", {
     }
   ],
 
+  navigation: {
+    buttonOptions: {
+        enabled: false
+    }
+  },
+
   responsive: {
     rules: [
       {
@@ -3508,8 +3517,192 @@ Highcharts.chart("prunedHeatmap", {
   }
 });
 
+///////////////////////////////////////////////
+// Feature Importance Chart
+///////////////////////////////////////////////
+
+Highcharts.chart('featureImportance', {
+  chart: {
+      type: 'bar'
+  },
+  title: {
+      text: ''
+  },
+  xAxis: {
+      labels: {
+        style: {
+          fontSize: '10px'
+        }
+      },
+      categories: ['Black or African American alone, percent, 2014',
+        'Land area in square miles, 2010',
+        'Median value of owner-occupied housing units, 2009-2013',
+        'High school graduate or higher, percent of persons age 25+, 2009-2013',
+        'White alone, percent, 2014',
+        "Bachelor's degree or higher, percent of persons age 25+, 2009-2013",
+        'Housing units in multi-unit structures, percent, 2009-2013',
+        'Hispanic or Latino, percent, 2014',
+        'Language other than English spoken at home, pct age 5+, 2009-2013',
+        'Foreign born persons, percent, 2009-2013',
+        'Homeownership rate, 2009-2013',
+        'White alone, not Hispanic or Latino, percent, 2014',
+        'Supports eliminating electoral college in favor of popular vote',
+        'Female persons, percent, 2014',
+        'Persons under 18 years, percent, 2014',
+        'Require gun owners to obtain a license for assault weapons',
+        'American Indian and Alaska Native alone, percent, 2014',
+        'Population per square mile, 2010',
+        'Median household income, 2009-2013',
+        'Persons per household, 2009-2013',
+        'Asian alone, percent, 2014',
+        'Children attended K-12 public schools',
+        'Mean travel time to work (minutes), workers age 16+, 2009-2013',
+        'Net worth',
+        'Per capita money income in past 12 months (2013 dollars), 2009-2013',
+        'Living in same house 1 year & over, percent, 2009-2013',
+        'Outside donation money',
+        'Government subsidizes public four-year colleges',
+        'Accommodation and food services sales, 2007 ($1,000)',
+        'The federal government should cancel existing student debt',
+        'Persons below poverty level, percent, 2009-2013',
+        'Voting while incarcerated',
+        'The federal government should guarantee a job to every american',
+        'Retail sales per capita, 2007',
+        'Get rid of private insurance',
+        'Supports returning federal corporate income tax rate to 35%',
+        'Supports national rent control cap',
+        'Supports medicare for all',
+        'Believes there should be criminal penalties for people crossing the border',
+        'Native Hawaiian and Other Pacific Islander alone, percent, 2014',
+        'Total number of firms, 2007',
+        'Population, percent change - April 1, 2010 to July 1, 2014',
+        'Retail sales, 2007 ($1,000)',
+        'Persons under 5 years, percent, 2014',
+        'Tax assets held by the wealthiest americans',
+        'Persons 65 years and over, percent, 2014',
+        'Two or More Races, percent, 2014',
+        'Hispanic-owned firms, percent, 2007',
+        'Building permits, 2014',
+        'Commits to lowering debt-to-GDP ratio during first term',
+        'Supports paid family leave more than 12 weeks',
+        'Ban  fracking',
+        '# of Twitter followers',
+        'Open to meeting north korean leader without nuclear concessions',
+        '% Donations Under $200',
+        'Private nonfarm employment, percent change, 2012-2013',
+        'Supports cannabis legalization',
+        'Merchant wholesaler sales, 2007 ($1,000)',
+        'Supports joining TPP',
+        'Women-owned firms, percent, 2007',
+        'Supports setting a price on carbon',
+        'Candidate committee money'
+        ],
+      title: {
+          text: null
+      }
+  },
+  yAxis: {
+      min: 0,
+      title: {
+          text: '',
+          align: 'high'
+      },
+      labels: {
+          overflow: 'justify'
+      }
+  },
+
+  legend: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      name: 'Feature Importance',
+      data: [0.054338931,
+        0.051897658,
+        0.036364802,
+        0.030299761,
+        0.024179013,
+        0.024010193,
+        0.023634212,
+        0.021358286,
+        0.02112633,
+        0.020429239,
+        0.01945331,
+        0.01940729,
+        0.019227134,
+        0.017686678,
+        0.017549902,
+        0.017087986,
+        0.017008214,
+        0.016912593,
+        0.016768957,
+        0.0163054,
+        0.015497411,
+        0.015415307,
+        0.015250925,
+        0.01503704,
+        0.015036632,
+        0.014881676,
+        0.014750371,
+        0.014613914,
+        0.014473953,
+        0.01432,
+        0.014213997,
+        0.01414475,
+        0.014037464,
+        0.01391488,
+        0.013674493,
+        0.013127434,
+        0.013098065,
+        0.012988204,
+        0.012920908,
+        0.012833428,
+        0.012624562,
+        0.012404991,
+        0.01229908,
+        0.012224584,
+        0.012181602,
+        0.011867229,
+        0.011770302,
+        0.01123987,
+        0.010889055,
+        0.010659276,
+        0.010622139,
+        0.010581797,
+        0.010440111,
+        0.010348721,
+        0.010208673,
+        0.009875175,
+        0.009633757,
+        0.008746234,
+        0.008746048,
+        0.008604799,
+        0.007860875,
+        0.006894377
+        ]
+  }],
+
+  navigation: {
+    buttonOptions: {
+        enabled: false
+    }
+  },
+
+});
+
+  })
+
+})
 
 
+
+
+/////////////////////////////////////////////////
+// Highcharts theme
+/////////////////////////////////////////////////
 
 /* global document */
 // Load the fonts

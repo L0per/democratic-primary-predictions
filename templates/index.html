@@ -21,7 +21,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12">
       <div class="jumbotron jumbo_text">
         <h1 class="display-3" style='font-weight: 400;'>Primary Predictions</h1>
-        <p class="lead">Using machine learning to predict the outcome of the democratic primaries by county.</p>
+        <p class="lead">Using machine learning to predict the outcome of the 2020 democratic primaries by county.</p>
         <hr class="my-4">
         <p>Created by Terra Thompson & John Loper</p>
         <p class="lead">
@@ -39,8 +39,8 @@
         <p>Using a random forest classifier model, we predicted whether Democratic 2020 candidates Bernie Sanders and Joe Biden would win or lose on the county level.</p>
         <p>A few notes: 
           <ul>
-              <li>The model uses the results up to and including Super Tuesday</li>
-              <li>Predictions are made based on classification, so the candidate either wins or loses counties</li>
+              <li>The model uses the results up to and including Super Tuesday (18 states)</li>
+              <li>Predictions are based on classification, so the candidate either wins or loses counties</li>
               <li>We predict the candidates separately, so they can both win or lose the same county</li>
               <li>We did not predict states that were used in the model</li>
           </ul>
@@ -48,7 +48,11 @@
       </div>
     </div>
   </div>
-  <hr class="my-4">
+  <div class="row justify-content-center" style='margin-top: 2rem; margin-bottom: 2rem;'>
+    <div class="col-md-5">
+      <hr class="my-4">
+    </div>
+  </div>
   <!-- End Introduction Text -->
 
   <!-- Map and summary chart -->
@@ -77,9 +81,9 @@
   <!-- Map and summary chart text -->
   <div class="row" style='margin: 3rem;'>
     <div class="col-md-6">
-      <p style='margin: 3rem;'>So far, the model has correctly predicted 7 out of 9 states correctly (78% accuracy), however the 2 incorrectly predicted states were close elections.</p>
-      <p style='margin: 3rem;'>Washington was a close election where the final total vote result was Biden 38% vs. Sanders 36%. We predicted that Sanders would win by picking up 29 counties vs. Biden's 10 counties, but the actual results had Sanders at 13 counties vs. Biden's 26.</p>    
-      <p style='margin: 3rem;'>It's important to emphasize that our model does not take into account county population and by extension delgates, so a candidate may win the state even though they did not win the majority of counties.</p>        
+      <p style='margin: 3rem;'>So far, the model has correctly predicted 7 out of 9 states correctly (78% accuracy), however 1 of the incorrectly predicted states was a very close result.</p>
+      <p style='margin: 3rem;'><font color="red">Washington </font>was a close election where the final total vote result was Biden 38% vs. Sanders 36%. We predicted that Sanders would win by 29 counties vs. Biden's 10 counties, but the actual results had Sanders at 13 counties vs. Biden's 26. <font color="red">Arizona </font> was held after Biden gained significant momentum and was likely influenced by his large delegate increase from Big Tuesday.</p>    
+      <p style='margin: 3rem;'>It's important to emphasize that our model does not take into account county population, and by extension the number of delgates won. In actuality, a candidate may win the state even though they did not win the majority of counties.</p>        
     </div>
     <div class="col-md-6">
       <table class="table" style='color: white;'>
@@ -148,7 +152,11 @@
       </table>
     </div>
   </div>
-  <hr class="my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <hr class="my-4">
+    </div>
+  </div>
   <!-- End Map and summary chart text -->
 
   <!-- Data  -->
@@ -157,16 +165,16 @@
       <div style='margin-left: 2rem;'><h1>Model Data</h1></div>
     </div>
   </div>
-  <div class="row" style='margin-top: 2rem;'>
+  <div class="row" style='margin-top: 2rem; margin-bottom: 3rem;'>
     <div class="col-md-6">
       <div style='margin-left: 2rem;'>
         <p><strong>Candidate Features:</strong></p>
           <ul>
             <li>
-              <p>WHERE DID WE GET THE NON-POLICY FEATURES</p>
+              <p>Candidate stances on policies were used for training and were sourced from the <a href='https://www.washingtonpost.com/graphics/politics/policy-2020/'>Washington Post.</a> Only policies where the candidate's differed were used.</p>
             </li>
             <li>
-              <p>Candidate stances on policies were also used for training and were sourced from the <a href='https://www.washingtonpost.com/graphics/politics/policy-2020/'>Washington Post.</a></p>
+              <p>Non-policy candidate features (e.g. net worth, committee money, etc.) was sourced from various online sources.</p>
             </li>
           </ul>
       </div>
@@ -185,10 +193,14 @@
       </div>
     </div>
   </div>
-  <hr class="my-4">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <hr class="my-4">
+    </div>
+  </div>
   <!-- End Data  -->
 
-  <!-- Features -->
+  <!-- Features % vote heatmap-->
   <div class="row" style='margin-top: 3rem;'>
     <div class="col-md-12">
       <div style='margin-left: 2rem;'><h1>Features</h1></div>
@@ -204,7 +216,7 @@
   <div class="row" style='margin-top: 1rem;'>
     <div class="col-md-8">
       <div style='margin-left: 2rem;'>
-        <p>This shows that Biden does well in rural areas and areas with high % black populations, and Sanders does well in urban areas and areas with high % white populations. However, what's interesting is that Biden appears to rely on a few key demographics while Sanders pulls from a much broader demographic.</p>
+        <p>This shows that Biden does very well areas with a high <font color="red">% black population</font>, while Sanders appears to do well in areas with a high <font color="red">% white population</font> and likely urban areas. The most interesting characteristic of these charts is that Biden appears to rely on a few key demographics while Sanders pulls from a much broader demographic.</p>
       </div>
     </div>
   </div>
@@ -217,21 +229,28 @@
       <div id='bidenHeatmap' style='height: 1000px'></div>
     </div>
   </div>
+  <!-- End Features % vote heatmap-->
 
+  <!-- Feature correlation heatmap -->
   <div class="row" style='margin-top: 2rem;'>
-    <div class="col-md-6">
+    <div class="col-md-12">
+      <div style='margin-left: 2rem;'><h2>Pruning</h2></div>
+    </div>
+  </div>
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-8">
       <div style='margin-left: 2rem;'>
-        <p>After calculating the percent vote for each Biden and Sanders, correlations for each county demographic feature were calculated and are shown below.</p>
+        <p>A correlation heatmap of all the county demographic features was created to identify highly corelated features to remove.</p>
       </div>
     </div>
   </div>
-  <!-- End Features -->
-
-</div>
-
-
-  
-
+  <div class="row" style='margin-top: 1rem;'>
+    <div class="col-md-8">
+      <div style='margin-left: 2rem;'>
+        <p>A majority of the features removed were related to the % of firms owned by ethnicities and also populations from different years. While more features could have been removed, there was only a slight improvement to the model accuracy after <font color="red">removing 13 features</font> (~2-3% accuracy improvement).</p>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <div class="col-md-6">
@@ -241,6 +260,83 @@
       <div id='prunedHeatmap' style='height: 600px'></div>
     </div>
   </div>
+  <!-- Feature correlation heatmap -->
+
+  <!-- Feature importance -->
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-12">
+      <div style='margin-left: 2rem;'><h2>Feature Importance</h2></div>
+    </div>
+  </div>
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-6">
+      <div style='margin: 2rem;'>
+        <p>The importance of each feature used in the model was calculated and shown to the right.</p>
+      </div>
+      <div style='margin: 2rem;'>
+        <p>Not surprisingly, the most important feature is <font color="red">% black population</font>, which is what we saw above for the % vote feature correlation.</p>
+      </div>
+      <div style='margin: 2rem;'>
+        <p>Interestingly, the second most important feature is <font color="red">land area</font> of the county. This suggests that whether or not the county is rural has a large effect on the candidate outcome.</p>
+      </div>
+      <div style='margin: 2rem;'>
+        <p>A few features were removed due to very low importance (% black owned firms and the policy stance on whether to ratify NA trade agreement)</p>
+      </div>
+      <div style='margin: 2rem;'>
+        <p>After feature pruning, we obtained an acceptable model accuracy:</p>
+      </div>
+      <div style='margin: 3rem;'>
+        <img
+        src="../static/images/model_stats.PNG"
+        alt="Model Stats">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div id="featureImportance" style="height: 1000px;"></div>
+    </div>
+  </div>
+  <div class="row justify-content-center" style='margin-top: 2rem; margin-bottom: 2rem;'>
+    <div class="col-md-5">
+      <hr class="my-4">
+    </div>
+  </div>
+  <!-- End Feature importance -->
+
+  <!-- Limitations -->
+  <div class="row" style='margin-top: 3rem;'>
+    <div class="col-md-12">
+      <div style='margin-left: 2rem;'><h1>Limitations and Improvements</h1></div>
+    </div>
+  </div>
+  <div class="row" style='margin-top: 2rem;'>
+    <div class="col-md-8">
+      <div style='margin: 2rem;'>
+        <p>A major limitation of this model is that we are not accounting for the momentum candidates gain after gaining delagates. If we were to <font color="red">add the current delagate counts for each candidate</font>, it would likely greatly increase the model accuracy.</p>
+      </div>
+      <div style='margin: 2rem;'>
+        <p>A second major limiation is how we only predict winners on the county level and do not account for the <font color="red">actual number of delgates rewarded</font>. This is a major hurdle because of the different rules for each state.</p>
+      </div>
+      <div style='margin: 2rem;'>
+        <p>Other models were initally explored (tensorflow, xgboost classifier), and while they showed similar or slightly greater model accuracy for the training states, they were not as accurate for actual predictions. This suggests that we are likely <font color="red">overfitting to our training states</font>, which is not surprising considering our small dataset for training (~3600 rows).</p>
+      </div>
+    </div>
+    <div class="col-md-4" style="margin-top: 2rem;">
+      <img
+      src="../static/images/cartoon.jpg"
+      alt="Silly Cartoon" style='max-width: 100%;'>
+    </div>
+  </div>
+  <!-- End Limitation -->
+
+
+
+</div>
+
+
+  
+
+
+
 </div>
 
 
