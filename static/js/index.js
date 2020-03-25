@@ -8,6 +8,10 @@ function getRandomInt(max,num) {
 d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, error) {
   d3.json('http://127.0.0.1:5000/api/county_results').then(function(county_result,error) {
 
+    ///////////////////////////////////////////////
+    // Prediction Map
+    ///////////////////////////////////////////////
+
     var data = Highcharts.geojson(Highcharts.maps['countries/us/us-all']),
       separators = Highcharts.geojson(Highcharts.maps['countries/us/us-all'], 'mapline'),
       // Some responsiveness
@@ -117,30 +121,31 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       legend: small ? {} : {
         layout: 'vertical',
         align: 'right',
-        verticalAlign: 'middle'
+        verticalAlign: 'middle',
+        backgroundColor: 'rgba(255,0,0,0)'
       },
 
       colorAxis: {
         dataClasses:[{
-        color:'#C03221',
+        color:'#6b591d',
         from:0,
         name:'Biden',
         to:0,
         },
         {
-        color:'#1C5D99',
+        color:'#76a21e',
         from:1,
         name:'Sanders',
         to:1,
       },
       {
-      color:'pink',
+      color:'rgba(52,53,45)',
       from:2,
       name:'Used in Model',
       to:2,
     },
       {
-      color:'#D8DAD3',
+      color:'#c6cf65',
       from:-1,
       name:'Undetermined',
       to:-1,
@@ -169,6 +174,16 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
               color: '#F1F2EB'
             }
           }
+        }
+      },
+
+      mapNavigation: {
+        enabled: false,
+      },
+
+      navigation: {
+        buttonOptions: {
+            enabled: false
         }
       },
 
@@ -211,6 +226,10 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
 
 d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, error) {
   d3.json('http://127.0.0.1:5000/api/county_results').then(function(county_result,error) {
+
+    ///////////////////////////////////////////////
+    // Actual Results Map
+    ///////////////////////////////////////////////
 
     var data = Highcharts.geojson(Highcharts.maps['countries/us/us-all']),
       separators = Highcharts.geojson(Highcharts.maps['countries/us/us-all'], 'mapline'),
@@ -324,26 +343,26 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       legend: small ? {} : {
         layout: 'vertical',
         align: 'right',
-        verticalAlign: 'middle'
+        verticalAlign: 'middle',
+        backgroundColor: 'rgba(255,0,0,0)'
       },
-
       colorAxis: {
         dataClasses:[{
-        color:'#C03221',
+        color:'#6b591d',
         from:0,
         name:'Biden',
         to:0,
         },
         {
-        color:'#1C5D99',
+        color:'#76a21e',
         from:1,
         name:'Sanders',
         to:1,
       },
       {
-      color:'#D8DAD3',
+      color:'rgba(52,53,45)',
       from:-1,
-      name:'Undetermined',
+      name:'Election Not Yet Held',
       to:-1,
       }]
       },
@@ -370,6 +389,16 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
               color: '#F1F2EB'
             }
           }
+        }
+      },
+
+      mapNavigation: {
+        enabled: false,
+      },
+
+      navigation: {
+        buttonOptions: {
+            enabled: false
         }
       },
 
@@ -456,6 +485,9 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       }
     }
 
+    // sort state list
+    stateList.sort()
+
     // create plot series
     let summaryChartSeries = []
 
@@ -475,10 +507,33 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
       sanders_post.name = stateList[state]
       biden_post.name = stateList[state]
 
-      sanders_post.data.push(sanders_predicted[stateList[state]])
-      sanders_post.data.push(sanders_actual[stateList[state]])
-      biden_post.data.push(biden_predicted[stateList[state]])
-      biden_post.data.push(biden_actual[stateList[state]])
+      if (sanders_predicted[stateList[state]] > 0) {
+        sanders_post.data.push(sanders_predicted[stateList[state]])
+      }
+      else {
+        sanders_post.data.push(0)
+      }
+
+      if (sanders_predicted[stateList[state]] > 0) {
+        sanders_post.data.push(sanders_actual[stateList[state]])
+      }
+      else {
+        sanders_post.data.push(0)
+      }
+
+      if (sanders_predicted[stateList[state]] > 0) {
+        biden_post.data.push(biden_predicted[stateList[state]])
+      }
+      else {
+        biden_post.data.push(0)
+      }
+
+      if (sanders_predicted[stateList[state]] > 0) {
+        biden_post.data.push(biden_actual[stateList[state]])
+      }
+      else {
+        biden_post.data.push(0)
+      }
 
       summaryChartSeries.push(sanders_post)
       summaryChartSeries.push(biden_post)
@@ -489,12 +544,16 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
 
     Highcharts.chart('summaryChart', {
 
+      legend: {
+        enabled: false
+      },
+
       chart: {
           type: 'column'
       },
     
       title: {
-          text: 'Predicted vs. Actual Results'
+          text: 'Predicted vs. Actual: Up to 3/17/20 Election Results'
       },
     
       xAxis: {
@@ -505,7 +564,16 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
           allowDecimals: false,
           min: 0,
           title: {
-              text: 'Number of Counties Won'
+              text: '# of Counties Won'
+          },
+          stackLabels: {
+            style: {
+                color: 'white'
+            },
+            enabled: true,
+            formatter: function() {
+              return this.stack + ':' + " " + this.total;
+            },
           }
       },
     
@@ -516,36 +584,21 @@ d3.json('http://127.0.0.1:5000/api/state_results').then(function(state_result, e
                   'Total: ' + this.point.stackTotal;
           }
       },
-    
+      
+      navigation: {
+        buttonOptions: {
+            enabled: false
+        }
+      },
+
       plotOptions: {
           column: {
-              stacking: 'normal'
-          }
+              stacking: 'normal',
+          },
       },
     
-      series: [{
-          name: 'John',
-          data: [5, 3, 4, 7, 2],
-          stack: 'male'
-      }, {
-          name: 'Joe',
-          data: [3, 4, 4, 2, 5],
-          stack: 'male'
-      }, {
-          name: 'Jane',
-          data: [2, 5, 6, 2, 1],
-          stack: 'female'
-      }, {
-          name: 'Janet',
-          data: [3, 0, 4, 4, 3],
-          stack: 'female'
-      }]
+      series: summaryChartSeries
     });
-
-  })
-
-})
-
 
 ///////////////////////////////////////////////////
 // Bernie Heat Map
@@ -568,7 +621,10 @@ Highcharts.chart("bernieHeatmap", {
 
   title: {
     text: "Sanders",
-    x: -30
+    x: 185,
+    style: {
+      fontSize: '30px'
+    }
   },
 
   xAxis: [
@@ -577,7 +633,7 @@ Highcharts.chart("bernieHeatmap", {
     },
     {
       linkedTo: 0,
-      categories: ["Percent Vote Correlation"],
+      categories: [""],
       opposite: true
     }
   ],
@@ -657,11 +713,9 @@ Highcharts.chart("bernieHeatmap", {
 
   colorAxis: {
     stops: [
-      [0, "#0079ff"],
-      [0.25, "#abb9ff"],
-      [0.5, "#ffffff"],
-      [0.75, "#ff9d81"],
-      [1, "#f90000"]
+      [0.2, "#76a21e"],
+      [0.5, "#f3ff93"],
+      [0.8, "#560d0d"]
     ],
     max: 0.55,
     min: -0.56,
@@ -673,8 +727,9 @@ Highcharts.chart("bernieHeatmap", {
     layout: "vertical",
     margin: 0,
     verticalAlign: "top",
-    y: 25,
-    symbolHeight: 280
+    y: 45,
+    symbolHeight: 280,
+    backgroundColor: 'rgba(255,0,0,0)'
   },
 
   tooltip: {
@@ -753,6 +808,12 @@ Highcharts.chart("bernieHeatmap", {
     }
   ],
 
+  navigation: {
+    buttonOptions: {
+        enabled: false
+    }
+  },
+
   responsive: {
     rules: [
       {
@@ -763,6 +824,14 @@ Highcharts.chart("bernieHeatmap", {
     ]
   }
 });
+
+
+  })
+
+})
+
+
+
 
 ///////////////////////////////////////////////////
 // Biden Heat Map
@@ -2535,7 +2604,7 @@ Highcharts.chart("prunedHeatmap", {
     type: "heatmap",
     marginTop: 60,
     marginBottom: 80,
-    plotBorderWidth: 0
+    plotBorderWidth: 0,
   },
 
   title: {
@@ -3440,3 +3509,211 @@ Highcharts.chart("prunedHeatmap", {
     ]
   }
 });
+
+
+
+
+/* global document */
+// Load the fonts
+Highcharts.createElement('link', {
+    href: 'https://fonts.googleapis.com/css?family=Unica+One',
+    rel: 'stylesheet',
+    type: 'text/css'
+}, null, document.getElementsByTagName('head')[0]);
+Highcharts.theme = {
+  "colors": [
+    "#76a21e",
+    "#6b591d"
+    ],
+    "chart": {
+      "backgroundColor": "#272822",
+      "style": {
+      "fontFamily": "Inconsolata",
+      "color": "#A2A39C"
+    }
+    },
+    "title": {
+      "style": {
+      "color": "#A2A39C"
+      },
+      "align": "left"
+    },
+    "subtitle": {
+      "style": {
+      "color": "#A2A39C"
+    },
+    "align": "left"
+    },
+    "legend": {
+      "align": "right",
+      "verticalAlign": "bottom",
+      "itemStyle": {
+      "fontWeight": "normal",
+      "color": "#A2A39C"
+      }
+    },
+    "xAxis": {
+      "gridLineDashStyle": "Dot",
+      "gridLineWidth": 1,
+      "gridLineColor": "#A2A39C",
+      "lineColor": "#A2A39C",
+      "minorGridLineColor": "#A2A39C",
+      "tickColor": "#A2A39C",
+      "tickWidth": 1,
+      labels: {
+        style: {
+          fontSize: '20px'
+        }
+      }
+    },
+    "yAxis": {
+      "gridLineDashStyle": "Dot",
+      "gridLineColor": "#A2A39C",
+      "lineColor": "#A2A39C",
+      "minorGridLineColor": "#A2A39C",
+      "tickColor": "#A2A39C",
+      "tickWidth": 1,
+      labels: {
+        style: {
+          fontSize: '13px'
+        }
+      },
+      title: {
+        style: {
+          fontSize: '16px'
+        }
+      }
+    },
+    tooltip: {
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        style: {
+            color: '#F0F0F0'
+        }
+    },
+    plotOptions: {
+        series: {
+            dataLabels: {
+                color: '#F0F0F3',
+                style: {
+                    fontSize: '13px'
+                }
+            },
+            marker: {
+                lineColor: '#333'
+            }
+        },
+        boxplot: {
+            fillColor: '#505053'
+        },
+        candlestick: {
+            lineColor: 'white'
+        },
+        errorbar: {
+            color: 'white'
+        }
+    },
+    legend: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        itemStyle: {
+            color: '#E0E0E3'
+        },
+        itemHoverStyle: {
+            color: '#FFF'
+        },
+        itemHiddenStyle: {
+            color: '#606063'
+        },
+        title: {
+            style: {
+                color: '#C0C0C0'
+            }
+        }
+    },
+    credits: {
+        style: {
+            color: '#666'
+        }
+    },
+    labels: {
+        style: {
+            color: '#707073'
+        }
+    },
+    drilldown: {
+        activeAxisLabelStyle: {
+            color: '#F0F0F3'
+        },
+        activeDataLabelStyle: {
+            color: '#F0F0F3'
+        }
+    },
+    navigation: {
+        buttonOptions: {
+            symbolStroke: '#DDDDDD',
+            theme: {
+                fill: '#505053'
+            }
+        }
+    },
+    // scroll charts
+    rangeSelector: {
+        buttonTheme: {
+            fill: '#505053',
+            stroke: '#000000',
+            style: {
+                color: '#CCC'
+            },
+            states: {
+                hover: {
+                    fill: '#707073',
+                    stroke: '#000000',
+                    style: {
+                        color: 'white'
+                    }
+                },
+                select: {
+                    fill: '#000003',
+                    stroke: '#000000',
+                    style: {
+                        color: 'white'
+                    }
+                }
+            }
+        },
+        inputBoxBorderColor: '#505053',
+        inputStyle: {
+            backgroundColor: '#333',
+            color: 'silver'
+        },
+        labelStyle: {
+            color: 'silver'
+        }
+    },
+    navigator: {
+        handles: {
+            backgroundColor: '#666',
+            borderColor: '#AAA'
+        },
+        outlineColor: '#CCC',
+        maskFill: 'rgba(255,255,255,0.1)',
+        series: {
+            color: '#7798BF',
+            lineColor: '#A6C7ED'
+        },
+        xAxis: {
+            gridLineColor: '#505053'
+        }
+    },
+    scrollbar: {
+        barBackgroundColor: '#808083',
+        barBorderColor: '#808083',
+        buttonArrowColor: '#CCC',
+        buttonBackgroundColor: '#606063',
+        buttonBorderColor: '#606063',
+        rifleColor: '#FFF',
+        trackBackgroundColor: '#404043',
+        trackBorderColor: '#404043'
+    }
+};
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
