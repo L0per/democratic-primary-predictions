@@ -1196,9 +1196,9 @@ Highcharts.chart("fullFeatHeatmap", {
 
   colorAxis: {
     stops: [
-      [0.1, "#560d0d"],
+      [0, "#560d0d"],
       [0.5, "#fbffd9"],
-      [0.9, "#76a21e"]
+      [1, "#76a21e"]
     ],
     max: 0.55,
     min: -0.56,
@@ -2746,9 +2746,9 @@ Highcharts.chart("prunedHeatmap", {
 
   colorAxis: {
     stops: [
-      [0.1, "#560d0d"],
+      [0, "#560d0d"],
       [0.5, "#fbffd9"],
-      [0.9, "#76a21e"]
+      [1, "#76a21e"]
     ],
     max: 0.55,
     min: -0.56,
