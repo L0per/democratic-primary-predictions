@@ -3521,106 +3521,110 @@ Highcharts.chart("prunedHeatmap", {
 // Feature Importance Chart
 ///////////////////////////////////////////////
 
-Highcharts.chart('featureImportance', {
+Highcharts.chart("featureImportance", {
   chart: {
-      type: 'bar'
+    type: "bar"
   },
   title: {
-      text: ''
+    text: ""
   },
   xAxis: {
-      labels: {
-        style: {
-          fontSize: '10px'
-        }
-      },
-      categories: ['Black or African American alone, percent, 2014',
-        'Land area in square miles, 2010',
-        'Median value of owner-occupied housing units, 2009-2013',
-        'High school graduate or higher, percent of persons age 25+, 2009-2013',
-        'White alone, percent, 2014',
-        "Bachelor's degree or higher, percent of persons age 25+, 2009-2013",
-        'Housing units in multi-unit structures, percent, 2009-2013',
-        'Hispanic or Latino, percent, 2014',
-        'Language other than English spoken at home, pct age 5+, 2009-2013',
-        'Foreign born persons, percent, 2009-2013',
-        'Homeownership rate, 2009-2013',
-        'White alone, not Hispanic or Latino, percent, 2014',
-        'Supports eliminating electoral college in favor of popular vote',
-        'Female persons, percent, 2014',
-        'Persons under 18 years, percent, 2014',
-        'Require gun owners to obtain a license for assault weapons',
-        'American Indian and Alaska Native alone, percent, 2014',
-        'Population per square mile, 2010',
-        'Median household income, 2009-2013',
-        'Persons per household, 2009-2013',
-        'Asian alone, percent, 2014',
-        'Children attended K-12 public schools',
-        'Mean travel time to work (minutes), workers age 16+, 2009-2013',
-        'Net worth',
-        'Per capita money income in past 12 months (2013 dollars), 2009-2013',
-        'Living in same house 1 year & over, percent, 2009-2013',
-        'Outside donation money',
-        'Government subsidizes public four-year colleges',
-        'Accommodation and food services sales, 2007 ($1,000)',
-        'The federal government should cancel existing student debt',
-        'Persons below poverty level, percent, 2009-2013',
-        'Voting while incarcerated',
-        'The federal government should guarantee a job to every american',
-        'Retail sales per capita, 2007',
-        'Get rid of private insurance',
-        'Supports returning federal corporate income tax rate to 35%',
-        'Supports national rent control cap',
-        'Supports medicare for all',
-        'Believes there should be criminal penalties for people crossing the border',
-        'Native Hawaiian and Other Pacific Islander alone, percent, 2014',
-        'Total number of firms, 2007',
-        'Population, percent change - April 1, 2010 to July 1, 2014',
-        'Retail sales, 2007 ($1,000)',
-        'Persons under 5 years, percent, 2014',
-        'Tax assets held by the wealthiest americans',
-        'Persons 65 years and over, percent, 2014',
-        'Two or More Races, percent, 2014',
-        'Hispanic-owned firms, percent, 2007',
-        'Building permits, 2014',
-        'Commits to lowering debt-to-GDP ratio during first term',
-        'Supports paid family leave more than 12 weeks',
-        'Ban  fracking',
-        '# of Twitter followers',
-        'Open to meeting north korean leader without nuclear concessions',
-        '% Donations Under $200',
-        'Private nonfarm employment, percent change, 2012-2013',
-        'Supports cannabis legalization',
-        'Merchant wholesaler sales, 2007 ($1,000)',
-        'Supports joining TPP',
-        'Women-owned firms, percent, 2007',
-        'Supports setting a price on carbon',
-        'Candidate committee money'
-        ],
-      title: {
-          text: null
+    labels: {
+      style: {
+        fontSize: "10px"
       }
+    },
+    categories: [
+      "Black or African American alone, percent, 2014",
+      "Land area in square miles, 2010",
+      "Median value of owner-occupied housing units, 2009-2013",
+      "High school graduate or higher, percent of persons age 25+, 2009-2013",
+      "White alone, percent, 2014",
+      "Bachelor's degree or higher, percent of persons age 25+, 2009-2013",
+      "Housing units in multi-unit structures, percent, 2009-2013",
+      "Hispanic or Latino, percent, 2014",
+      "Language other than English spoken at home, pct age 5+, 2009-2013",
+      "Foreign born persons, percent, 2009-2013",
+      "Homeownership rate, 2009-2013",
+      "White alone, not Hispanic or Latino, percent, 2014",
+      "Supports eliminating electoral college in favor of popular vote",
+      "Female persons, percent, 2014",
+      "Persons under 18 years, percent, 2014",
+      "Require gun owners to obtain a license for assault weapons",
+      "American Indian and Alaska Native alone, percent, 2014",
+      "Population per square mile, 2010",
+      "Median household income, 2009-2013",
+      "Persons per household, 2009-2013",
+      "Asian alone, percent, 2014",
+      "Children attended K-12 public schools",
+      "Mean travel time to work (minutes), workers age 16+, 2009-2013",
+      "Net worth",
+      "Per capita money income in past 12 months (2013 dollars), 2009-2013",
+      "Living in same house 1 year & over, percent, 2009-2013",
+      "Outside donation money",
+      "Government subsidizes public four-year colleges",
+      "Accommodation and food services sales, 2007 ($1,000)",
+      "The federal government should cancel existing student debt",
+      "Persons below poverty level, percent, 2009-2013",
+      "Voting while incarcerated",
+      "The federal government should guarantee a job to every american",
+      "Retail sales per capita, 2007",
+      "Get rid of private insurance",
+      "Supports returning federal corporate income tax rate to 35%",
+      "Supports national rent control cap",
+      "Supports medicare for all",
+      "Believes there should be criminal penalties for people crossing the border",
+      "Native Hawaiian and Other Pacific Islander alone, percent, 2014",
+      "Total number of firms, 2007",
+      "Population, percent change - April 1, 2010 to July 1, 2014",
+      "Retail sales, 2007 ($1,000)",
+      "Persons under 5 years, percent, 2014",
+      "Tax assets held by the wealthiest americans",
+      "Persons 65 years and over, percent, 2014",
+      "Two or More Races, percent, 2014",
+      "Hispanic-owned firms, percent, 2007",
+      "Building permits, 2014",
+      "Commits to lowering debt-to-GDP ratio during first term",
+      "Supports paid family leave more than 12 weeks",
+      "Ban  fracking",
+      "# of Twitter followers",
+      "Open to meeting north korean leader without nuclear concessions",
+      "% Donations Under $200",
+      "Private nonfarm employment, percent change, 2012-2013",
+      "Supports cannabis legalization",
+      "Merchant wholesaler sales, 2007 ($1,000)",
+      "Supports joining TPP",
+      "Women-owned firms, percent, 2007",
+      "Supports setting a price on carbon",
+      "Candidate committee money"
+    ],
+    title: {
+      text: null
+    }
   },
   yAxis: {
-      min: 0,
-      title: {
-          text: '',
-          align: 'high'
-      },
-      labels: {
-          overflow: 'justify'
-      }
+    min: 0,
+    title: {
+      text: "",
+      align: "high"
+    },
+    labels: {
+      overflow: "justify"
+    }
   },
 
   legend: {
-      enabled: false
+    enabled: false
   },
   credits: {
-      enabled: false
+    enabled: false
   },
-  series: [{
-      name: 'Feature Importance',
-      data: [0.054338931,
+  series: [
+    {
+      name: "Feature Importance",
+      color: "#9bd130",
+      data: [
+        0.054338931,
         0.051897658,
         0.036364802,
         0.030299761,
@@ -3682,15 +3686,15 @@ Highcharts.chart('featureImportance', {
         0.008604799,
         0.007860875,
         0.006894377
-        ]
-  }],
+      ]
+    }
+  ],
 
   navigation: {
     buttonOptions: {
-        enabled: false
+      enabled: false
     }
-  },
-
+  }
 });
 
   })

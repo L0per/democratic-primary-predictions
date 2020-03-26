@@ -39,8 +39,9 @@
         <p>Using a random forest classifier model, we predicted whether Democratic 2020 candidates Bernie Sanders and Joe Biden would win or lose on the county level.</p>
         <p>A few notes: 
           <ul>
-              <li>The model uses the results up to and including Super Tuesday (18 states)</li>
+              <li>The model was trained using results up to and including Super Tuesday (18 states)</li>
               <li>Predictions are based on classification, so the candidate either wins or loses counties</li>
+              <li>Winners and losers for training were based on the # of votes</li>
               <li>We predict the candidates separately, so they can both win or lose the same county</li>
               <li>We did not predict states that were used in the model</li>
           </ul>
@@ -81,8 +82,8 @@
   <!-- Map and summary chart text -->
   <div class="row" style='margin: 3rem;'>
     <div class="col-md-6">
-      <p style='margin: 3rem;'>So far, the model has correctly predicted 7 out of 9 states correctly (78% accuracy), however 1 of the incorrectly predicted states was a very close result.</p>
-      <p style='margin: 3rem;'><font color="red">Washington </font>was a close election where the final total vote result was Biden 38% vs. Sanders 36%. We predicted that Sanders would win by 29 counties vs. Biden's 10 counties, but the actual results had Sanders at 13 counties vs. Biden's 26. <font color="red">Arizona </font> was held after Biden gained significant momentum and was likely influenced by his large delegate increase from Big Tuesday.</p>    
+      <p style='margin: 3rem;'>So far, the model has correctly predicted 7 out of 9 states correctly (78% accuracy). However, 1 of the incorrectly predicted states was a very close result.</p>
+      <p style='margin: 3rem;'><font color="red">Washington </font>was a close election where the final total vote was Biden 38% vs. Sanders 36%. We predicted that Sanders would win 29 counties vs. Biden's 10 counties, but the actual results had Sanders at 13 counties vs. Biden's 26. <font color="red">Arizona </font> was held after Biden gained significant momentum and was likely influenced by his large delegate increase from Big Tuesday.</p>    
       <p style='margin: 3rem;'>It's important to emphasize that our model does not take into account county population, and by extension the number of delgates won. In actuality, a candidate may win the state even though they did not win the majority of counties.</p>        
     </div>
     <div class="col-md-6">
@@ -171,7 +172,7 @@
         <p><strong>Candidate Features:</strong></p>
           <ul>
             <li>
-              <p>Candidate stances on policies were used for training and were sourced from the <a href='https://www.washingtonpost.com/graphics/politics/policy-2020/'>Washington Post.</a> Only policies where the candidate's differed were used.</p>
+              <p>Candidate stances on policies were used for training and sourced from the <a href='https://www.washingtonpost.com/graphics/politics/policy-2020/'>Washington Post.</a> Only policies where the candidate's stances differed were used.</p>
             </li>
             <li>
               <p>Non-policy candidate features (e.g. net worth, committee money, etc.) was sourced from various online sources.</p>
@@ -209,14 +210,14 @@
   <div class="row" style='margin-top: 2rem;'>
     <div class="col-md-8">
       <div style='margin-left: 2rem;'>
-        <p>After calculating the % vote for each candidate, correlations for each county demographic feature were calculated and are shown below.</p>
+        <p>After calculating the % vote for each candidate, the correlation for each county demographic feature was calculated and are shown below.</p>
       </div>
     </div>
   </div>
   <div class="row" style='margin-top: 1rem;'>
     <div class="col-md-8">
       <div style='margin-left: 2rem;'>
-        <p>This shows that Biden does very well areas with a high <font color="red">% black population</font>, while Sanders appears to do well in areas with a high <font color="red">% white population</font> and likely urban areas. The most interesting characteristic of these charts is that Biden appears to rely on a few key demographics while Sanders pulls from a much broader demographic.</p>
+        <p>This shows that Biden does very well areas with a high <font color="red">% black population</font>, while Sanders appears to do well in areas with a high <font color="red">% white population</font> and likely urban areas. An interesting characteristic is that Biden appears to rely on a few key demographics while Sanders pulls from a much broader demographic.</p>
       </div>
     </div>
   </div>
@@ -280,10 +281,10 @@
         <p>Interestingly, the second most important feature is <font color="red">land area</font> of the county. This suggests that whether or not the county is rural has a large effect on the candidate outcome.</p>
       </div>
       <div style='margin: 2rem;'>
-        <p>A few features were removed due to very low importance (% black owned firms and the policy stance on whether to ratify NA trade agreement)</p>
+        <p>A few features were removed due to very low importance (% black owned firms and the policy stance on whether to ratify NA trade agreement).</p>
       </div>
       <div style='margin: 2rem;'>
-        <p>After feature pruning, we obtained an acceptable model accuracy:</p>
+        <p>After feature pruning, we obtained acceptable model accuracy:</p>
       </div>
       <div style='margin: 3rem;'>
         <img
@@ -311,10 +312,10 @@
   <div class="row" style='margin-top: 2rem;'>
     <div class="col-md-8">
       <div style='margin: 2rem;'>
-        <p>A major limitation of this model is that we are not accounting for the momentum candidates gain after gaining delagates. If we were to <font color="red">add the current delagate counts for each candidate</font>, it would likely greatly increase the model accuracy.</p>
+        <p>A major limitation of this model is that we are not accounting for the momentum candidates gain after winning delagates. If we were to <font color="red">add the current delagate count as a feature for each candidate</font>, it would likely greatly increase the model accuracy.</p>
       </div>
       <div style='margin: 2rem;'>
-        <p>A second major limiation is how we only predict winners on the county level and do not account for the <font color="red">actual number of delgates rewarded</font>. This is a major hurdle because of the different rules for each state.</p>
+        <p>A second major limiation is how we predict winners on the county level and do not account for the <font color="red">actual number of delgates rewarded</font>. This is a major hurdle because of the different rules for each state and the somewhat convoluted delegate count process.</p>
       </div>
       <div style='margin: 2rem;'>
         <p>Other models were initally explored (tensorflow, xgboost classifier), and while they showed similar or slightly greater model accuracy for the training states, they were not as accurate for actual predictions. This suggests that we are likely <font color="red">overfitting to our training states</font>, which is not surprising considering our small dataset for training (~3600 rows).</p>
